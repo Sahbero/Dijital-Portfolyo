@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>İç Mimar Portfolyo | [Adınız Soyadınız]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Genel Stil Ayarları */
+        :root {
+            --primary-bg: #FFFFFF;
+            --secondary-bg: #F8F8F8;
+            --text-color: #333333;
+            --dark-text: #1A1A1A;
+            --accent-color: #8C6A5A; /* Doğal ahşap tonu gibi */
+            --border-color: #E0E0E0;
+            --shadow-light: rgba(0, 0, 0, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--primary-bg);
+            scroll-behavior: smooth;
+        }
+
+        /* Konteyner */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* Başlıklar */
+        h1, h2, h3, h4, h5, h6 {
+            font-weight: 700;
+            color: var(--dark-text);
+            margin-bottom: 20px;
+            line-height: 1.2;
+        }
+
+        h1 { font-size: 2.8em; }
+        h2 { font-size: 2.2em; }
+        h3 { font-size: 1.8em; }
+
+        /* Bağlantılar */
+        a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        a:hover {
+            color: var(--dark-text);
+        }
+
+        /* Butonlar */
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--primary-bg);
+            padding: 12px 25px;
+            border-radius: 5px;
+            text-transform: uppercase;
+            font-weight: 500;
+            letter-spacing: 1px;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: var(--dark-text);
+            transform: translateY(-2px);
+        }
+
+        /* Header / Navigasyon */
+        .header {
+            background-color: var(--primary-bg);
+            padding: 20px 0;
+            border-bottom: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px var(--shadow-light);
+        }
+
+        .header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--dark-text);
+        }
+
+        .nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav ul li {
+            margin-left: 30px;
+        }
+
+        .nav ul li a {
+            font-weight: 500;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color);
+            bottom: -5px;
+            left: 0;
+            transition: width .3s ease;
+        }
+
+        .nav ul li a:hover::after {
+            width: 100%;
+        }
+
+        /* Kahraman Bölümü (Hero Section) */
+        .hero {
+            background-color: var(--secondary-bg);
+            text-align: center;
+            padding: 100px 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 70vh;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
+            margin-bottom: 15px;
+            max-width: 800px;
+            line-height: 1.1;
+        }
+
+        .hero p {
+            font-size: 1.4em;
+            margin-bottom: 30px;
+            color: var(--text-color);
+            max-width: 700px;
+        }
+
+        /* Hakkımda Bölümü */
+        .about-section {
+            padding: 80px 0;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 40px;
+        }
+
+        .about-image {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+
+        .about-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 5px 15px var(--shadow-light);
+        }
+
+        .about-content {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        .about-content h2 {
+            margin-bottom: 20px;
+        }
+
+        /* Projeler Bölümü */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .project-card {
+            background-color: var(--primary-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+        }
+
+        .project-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .project-card img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            display: block;
+            filter: grayscale(100%); /* Mimari dokunuş: Siyah beyaz önizleme */
+            transition: filter 0.5s ease;
+        }
+
+        .project-card:hover img {
+            filter: grayscale(0%); /* Hover'da renkli */
+        }
+
+        .project-info {
+            padding: 20px;
+        }
+
+        .project-info h3 {
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .project-info p {
+            font-size: 0.9em;
+            color: #666;
+        }
+
+        /* Hizmetler Bölümü */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            padding: 50px 0;
+        }
+
+        .service-card {
+            background-color: var(--primary-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 30px;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .service-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+
+        .service-card p {
+            font-size: 0.95em;
+            color: #555;
+        }
+
+        /* İletişim Bölümü */
+        .contact-section {
+            background-color: var(--secondary-bg);
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .contact-info {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .contact-item {
+            background-color: var(--primary-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            flex: 1;
+            min-width: 250px;
+            max-width: 350px;
+        }
+
+        .contact-item h3 {
+            font-size: 1.4em;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .contact-item p {
+            margin-bottom: 5px;
+        }
+
+        .contact-item a {
+            font-weight: 500;
+        }
+
+        .social-links {
+            margin-top: 30px;
+        }
+
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
+            font-size: 2em;
+            color: var(--text-color);
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* Footer */
+        .footer {
+            background-color: var(--dark-text);
+            color: var(--primary-bg);
+            text-align: center;
+            padding: 30px 0;
+            font-size: 0.9em;
+        }
+
+        .footer p {
+            margin: 0;
+        }
+
+        /* Responsive Ayarlar */
+        @media (max-width: 768px) {
+            .header .container {
+                flex-direction: column;
+            }
+
+            .nav ul {
+                margin-top: 15px;
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+
+            .nav ul li {
+                margin: 0 15px 10px 15px;
+            }
+
+            .hero h1 {
+                font-size: 2.5em;
+            }
+
+            .hero p {
+                font-size: 1.2em;
+            }
+
+            .about-section {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .projects-grid, .services-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            h3 { font-size: 1.5em; }
+
+            .hero {
+                padding: 60px 15px;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+
+            .contact-info {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .contact-item {
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="#home">[Adınız Soyadınız]</a> </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="#home">Ana Sayfa</a></li>
+                    <li><a href="#about">Hakkımda</a></li>
+                    <li><a href="#projects">Projeler</a></li>
+                    <li><a href="#services">Hizmetler</a></li>
+                    <li><a href="#contact">İletişim</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Mekanlara Hayat Veren Tasarımlar</h1>
+                <p>İç mekanların potansiyelini keşfedin. Estetik ve işlevselliği bir araya getiren özgün çözümlerle hayallerinizi gerçeğe dönüştürüyoruz.</p>
+                <a href="#projects" class="btn">Projelerimi Keşfet</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section container">
+            <div class="about-image">
+                <img src="https://via.placeholder.com/400x500/F0F0F0/8C6A5A?text=Portre" alt="[Adınız Soyadınız] Portresi"> </div>
+            <div class="about-content">
+                <h2>Ben Kimim?</h2>
+                <p>Merhaba, ben **[Adınız Soyadınız]**. İç mimarlık alanında tutkuyla çalışan bir tasarımcıyım. Mekanların sadece duvarlardan ibaret olmadığına, aynı zamanda hikayeler anlattığına ve yaşamları şekillendirdiğine inanıyorum. Her projeye özgün bir bakış açısıyla yaklaşıyor, müşterilerimin ihtiyaçları ve hayalleri doğrultusunda fonksiyonel, estetik ve sürdürülebilir tasarımlar yaratıyorum.</p>
+                <p>Estetik ve işlevselliği birleştirerek, her metrekarenin en verimli şekilde kullanılmasını sağlıyorum. Minimalist yaklaşımlardan lüks detaylara kadar geniş bir yelpazede, sizi yansıtan mekanlar tasarlamak için buradayım.</p>
+            </div>
+        </section>
+
+        <section id="projects" class="container">
+            <h2 style="text-align: center; margin-top: 50px;">Seçilmiş Projeler</h2>
+            <p style="text-align: center; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; color: #666;">Tamamladığımız bazı projelerimize göz atın. Her bir proje, özgün tasarım felsefemizin ve müşteri odaklı yaklaşımımızın bir yansımasıdır.</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/600x400/D0D0D0/333333?text=Konut+Projesi+1" alt="Konut Projesi 1">
+                    <div class="project-info">
+                        <h3>Modern Konut Tasarımı</h3>
+                        <p>Şehir merkezinde modern ve ferah bir dairenin iç mekan tasarımı ve uygulama süreci.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Detayları Gör</a> </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/600x400/D0D0D0/333333?text=Ofis+Projesi" alt="Ofis Projesi">
+                    <div class="project-info">
+                        <h3>Yenilikçi Ofis Alanı</h3>
+                        <p>Dinamik ve verimli çalışma ortamı sağlamak üzere tasarlanmış kurumsal ofis projesi.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Detayları Gör</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/600x400/D0D0D0/333333?text=Kafe+Tasarımı" alt="Kafe Tasarımı">
+                    <div class="project-info">
+                        <h3>Butik Kafe İç Tasarımı</h3>
+                        <p>Sıcak ve davetkar bir atmosfer yaratan butik kafe projesi.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Detayları Gör</a>
+                    </div>
+                </div>
+                <div class="project-card">
+                    <img src="https://via.placeholder.com/600x400/D0D0D0/333333?text=Restoran+Projesi" alt="Restoran Projesi">
+                    <div class="project-info">
+                        <h3>Fine Dining Restoran</h3>
+                        <p>Şık ve lüks detaylarla tasarlanmış, fine dining deneyimi sunan restoran iç mekanı.</p>
+                        <a href="#" class="btn" style="margin-top: 15px;">Detayları Gör</a>
+                    </div>
+                </div>
+                </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#" class="btn">Tüm Projeleri Görüntüle</a> </div>
+        </section>
+
+        <section id="services" class="container">
+            <h2 style="text-align: center; margin-top: 80px;">Hizmetlerimiz</h2>
+            <p style="text-align: center; margin-bottom: 50px; max-width: 700px; margin-left: auto; margin-right: auto; color: #666;">İç mekanlarınız için sunduğumuz kapsamlı hizmetler yelpazemiz.</p>
+            <div class="services-grid">
+                <div class="service-card">
+                    <h3>Konut İç Mimari Tasarım</h3>
+                    <p>Evlerinizi kişisel zevkinize ve yaşam tarzınıza uygun, fonksiyonel ve estetik mekanlara dönüştürüyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Ticari Alan Tasarımı</h3>
+                    <p>Ofisler, mağazalar, restoranlar ve diğer ticari mekanlar için marka kimliğinizi yansıtan, verimli ve çekici tasarımlar sunuyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Danışmanlık Hizmetleri</h3>
+                    <p>Tasarım kararlarınızda size yol göstermek, malzeme ve renk seçimi gibi konularda profesyonel destek sağlamak.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Uygulama ve Kontrol</h3>
+                    <p>Tasarım sürecinin çizimden uygulamaya kadar olan tüm aşamalarını titizlikle yönetiyor ve kontrol ediyoruz.</p>
+                </div>
+                <div class="service-card">
+                    <h3>Mobilya ve Özel Üretim</h3>
+                    <p>Mekana özel mobilya tasarımları ve mevcut mobilyaların stilinize uygun hale getirilmesi.</p>
+                </div>
+                <div class="service-card">
+                    <h3>3D Görselleştirme</h3>
+                    <p>Projelerinizi hayata geçmeden önce detaylı 3D renderlar ile görselleştirerek size sunuyoruz.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2>Bizimle İletişime Geçin</h2>
+                <p>Projeleriniz hakkında konuşmak, sorularınızı yanıtlamak veya bir randevu ayarlamak için bize ulaşmaktan çekinmeyin.</p>
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <h3>E-posta</h3>
+                        <p><a href="mailto:info@sizinadiniz.com">info@sizinadiniz.com</a></p> </div>
+                    <div class="contact-item">
+                        <h3>Telefon</h3>
+                        <p><a href="tel:+905XXYYYYZZZ">+90 (5XX) YYYY ZZZ</a></p> </div>
+                    <div class="contact-item">
+                        <h3>Adres</h3>
+                        <p>[Şehriniz], Türkiye</p> </div>
+                </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/sizinprofiliniz" target="_blank">LinkedIn</a> | <a href="https://www.instagram.com/sizinprofiliniz" target="_blank">Instagram</a> </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 [Adınız Soyadınız]. Tüm Hakları Saklıdır.</p>
+            <p>Modern İç Mimari Portfolyo</p>
+        </div>
+    </footer>
+
+    <script>
+        // Basit kaydırma efekti için JavaScript
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
