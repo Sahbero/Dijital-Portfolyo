@@ -497,48 +497,61 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* ----- GALERİ MODAL DÜZELTMELERİ BAŞLANGIÇ ----- */
+        /* ----- GALERİ MODAL STİLLERİ BAŞLANGIÇ ----- */
         .gallery-modal {
-            /* Modal'ın tam ekranı kaplamasını sağlar */
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            display: none; /* Bu satır modalı varsayılan olarak gizler */
-            /* Flexbox ile içeriği hem yatayda hem dikeyde ortalar */
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
         }
         .gallery-modal.show {
-            display: flex; /* Bu satır, JavaScript ile sınıf eklendiğinde modalı gösterir */
+            display: flex;
         }
         
         .modal-content {
             position: relative;
-            /* İçerik kapsayıcısı, ekranın boyutlarına göre esner. */
             width: 100%;
             height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
-            padding: 20px; /* Kenarlardan boşluk bırakır */
+            padding: 20px;
         }
         
         .modal-image {
-            /* İşte görselin ekranı taşmamasını sağlayan kritik satırlar! */
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain; /* En-boy oranını koruyarak görseli sığdırır */
+            object-fit: contain;
             display: block;
-            margin: auto; /* Görseli kapsayıcı içinde ortalar */
+            margin: auto;
+            transform-origin: center center;
+            cursor: grab;
+            transition: transform 0.2s ease-out; /* Yakınlaştırma için animasyon */
+        }
+        .modal-image.zoomed {
+            cursor: grabbing;
+        }
+        
+        .modal-controls {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 8px 15px;
+            border-radius: 50px;
         }
 
-        .modal-close-btn, .modal-nav-btn {
-            position: absolute;
-            background: rgba(0, 0, 0, 0.4);
+        .modal-close-btn, .modal-nav-btn, .modal-zoom-btn {
+            background: none;
             color: #fff;
             border: none;
             font-size: 1.5em;
@@ -552,14 +565,18 @@
             align-items: center;
         }
         .modal-close-btn {
+            position: absolute;
             top: 20px;
             right: 20px;
+            background: rgba(0, 0, 0, 0.4);
         }
         .modal-nav-btn {
+            position: absolute;
             top: 50%;
             transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.4);
         }
-        .modal-nav-btn:hover, .modal-close-btn:hover {
+        .modal-nav-btn:hover, .modal-close-btn:hover, .modal-zoom-btn:hover {
             background: rgba(0, 0, 0, 0.6);
         }
         .modal-nav-btn.prev {
@@ -568,7 +585,7 @@
         .modal-nav-btn.next {
             right: 20px;
         }
-        /* ----- GALERİ MODAL DÜZELTMELERİ SON ----- */
+        /* ----- GALERİ MODAL STİLLERİ SON ----- */
 
         /* Mobil Uyumluluk */
         @media (max-width: 768px) {
@@ -706,8 +723,8 @@
             <div class="hero-bg" style="background-image: url('9.jpg');"></div>
             <div class="hero-overlay"></div>
             <div class="hero-content">
-                <h1>Mekana Değer Katan Anlayış</h1>
-                <p>Mesleğinden keyif alan herkesin yaptığı gibi titizlikle çalışıyorum. Mekanın psikolojik iyileştirme yönünden faydalanıyorum.</p>
+                <h1>Mekanlara Yeni Bir Soluk</h1>
+                <p>Minimalist ve işlevsel tasarımlarla yaşam alanlarınızı dönüştürüyorum.</p>
                 <a href="#portfolio" class="btn primary">Portfolyoyu Keşfet</a>
             </div>
         </section>
@@ -845,7 +862,7 @@
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.co/600x400/DEDEDE/888?text=Teknik+4"]'>
-                        <img src="https://via.placeholder.co/600x400/DEDEDE/888?text=Teknik+4" alt="Detay Çizimi">
+                        <img src="https://via.placeholder.co/600x400/DEDEDE/88-?text=Teknik+4" alt="Detay Çizimi">
                         <div class="portfolio-info">
                             <h3>Detay Çizimi</h3>
                         </div>
@@ -939,6 +956,11 @@
             <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
             <button id="modalPrevBtn" class="modal-nav-btn prev"><i class="fas fa-chevron-left"></i></button>
             <button id="modalNextBtn" class="modal-nav-btn next"><i class="fas fa-chevron-right"></i></button>
+            <!-- Yeni eklenen yakınlaştırma kontrolleri -->
+            <div class="modal-controls">
+                <button id="modalZoomInBtn" class="modal-zoom-btn" title="Yakınlaştır"><i class="fas fa-search-plus"></i></button>
+                <button id="modalZoomOutBtn" class="modal-zoom-btn" title="Uzaklaştır"><i class="fas fa-search-minus"></i></button>
+            </div>
         </div>
     </div>
 
@@ -997,11 +1019,42 @@
             const modalPrevBtn = document.getElementById('modalPrevBtn');
             const modalNextBtn = document.getElementById('modalNextBtn');
 
+            // Yakınlaştırma ve uzaklaştırma için eklenen butonlar ve değişkenler
+            const modalZoomInBtn = document.getElementById('modalZoomInBtn');
+            const modalZoomOutBtn = document.getElementById('modalZoomOutBtn');
+            let currentScale = 1.0;
+            const scaleFactor = 0.2;
+            const maxScale = 3.0;
+
             function showImage(index) {
                 if (currentGalleryImages.length > 0) {
                     modalImage.src = currentGalleryImages[index];
                     modalPrevBtn.style.display = index === 0 ? 'none' : 'flex';
                     modalNextBtn.style.display = index === currentGalleryImages.length - 1 ? 'none' : 'flex';
+
+                    // Her yeni görselde yakınlaştırmayı sıfırla
+                    currentScale = 1.0;
+                    modalImage.style.transform = `scale(${currentScale})`;
+                    modalImage.style.cursor = 'grab'; // Yakınlaştırma sıfırlanınca imleci eski haline getir
+                }
+            }
+
+            function zoomIn() {
+                if (currentScale < maxScale) {
+                    currentScale += scaleFactor;
+                    modalImage.style.transform = `scale(${currentScale})`;
+                    modalImage.style.cursor = 'grab'; // Yakınlaştırınca imleç değişir
+                }
+            }
+
+            function zoomOut() {
+                if (currentScale > 1.0) {
+                    currentScale = Math.max(1.0, currentScale - scaleFactor);
+                    modalImage.style.transform = `scale(${currentScale})`;
+                    
+                    if (currentScale === 1.0) {
+                       modalImage.style.cursor = 'default'; // Yakınlaştırma sıfırlanınca imleci eski haline getir
+                    }
                 }
             }
 
@@ -1053,6 +1106,10 @@
                     showImage(currentImageIndex);
                 }
             });
+
+            // Yakınlaştırma butonları için olay dinleyicileri
+            modalZoomInBtn.addEventListener('click', zoomIn);
+            modalZoomOutBtn.addEventListener('click', zoomOut);
 
             // Galeri kapatma
             modalCloseBtn.addEventListener('click', function() {
