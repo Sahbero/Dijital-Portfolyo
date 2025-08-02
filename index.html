@@ -532,17 +532,19 @@
             max-width: 90vw; /* Ekran genişliğinin %90'ını kaplar */
             max-height: 90vh; /* Ekran yüksekliğinin %90'ını kaplar */
             display: flex;
-            justify-content: center;
-            align-items: center;
+            flex-direction: column; /* İçeriğin dikey yönde hizalanmasını sağlar */
+            justify-content: center; /* Yatayda ortalama */
+            align-items: center; /* Yatayda ortalama */
             overflow: auto; 
         }
         .modal-image {
             /* Görselin kendi boyutunda kalmasını ve kaydırma çubuğunun çalışmasını sağlar */
             max-width: 100%;
-            max-height: 100%; /* BURAYA DİKEY ORTALAMA VE GÖRÜNÜRLÜK SORUNU İÇİN EKLENDİ */
+            max-height: 100%;
             width: auto;
             height: auto;
             object-fit: contain; 
+            align-self: flex-start; /* Görselin modal içinde üstten hizalanmasını sağlar */
         }
 
         /* Galeri butonları güncellendi */
@@ -897,7 +899,7 @@
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/900x1200/DEDEDE/888?text=Çizim+4"]'>
-                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+4" alt="Malzeme Örneği Eskizi">
+                        <img src="https://via.placeholder.co/600x400/DEDEDE/888?text=Çizim+4" alt="Malzeme Örneği Eskizi">
                         <div class="portfolio-info">
                             <h3>Malzeme Eskizi</h3>
                         </div>
