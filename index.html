@@ -117,18 +117,21 @@
             top: 0;
             z-index: 1000;
         }
-
+        
+        /* HEADER KONTEYNERİ İÇİN YENİ DÜZENLEME */
         .header .container {
             display: flex;
             justify-content: space-between;
             align-items: center;
             width: 100%;
+            max-width: 1200px; /* Geniş ekranlarda daha geniş bir menü alanı */
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
         .logo {
             font-size: 1.5em;
             font-weight: 700;
-            padding-left: 10px;
         }
         .logo a {
             color: var(--text-color);
@@ -169,7 +172,6 @@
             font-size: 1.5em;
             cursor: pointer;
             color: var(--text-color);
-            padding-right: 10px;
         }
 
         /* Hero Section (Ana Sayfa Başlık Alanı) */
