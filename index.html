@@ -532,19 +532,17 @@
             max-width: 90vw; /* Ekran genişliğinin %90'ını kaplar */
             max-height: 90vh; /* Ekran yüksekliğinin %90'ını kaplar */
             display: flex;
-            flex-direction: column; /* İçeriğin dikey yönde hizalanmasını sağlar */
-            justify-content: center; /* Yatayda ortalama */
-            align-items: center; /* Yatayda ortalama */
-            overflow: auto; 
+            justify-content: center; /* Görseli yatayda ortalar */
+            align-items: center; /* Görseli dikeyde ortalar */
+            /* Önceki çözümdeki `overflow: auto` kaldırıldı, görseller artık taşmayacağı için buna gerek yok. */
         }
         .modal-image {
-            /* Görselin kendi boyutunda kalmasını ve kaydırma çubuğunun çalışmasını sağlar */
+            /* Görselin boyutunu ekrana sığacak şekilde düzenler. */
             max-width: 100%;
             max-height: 100%;
+            object-fit: contain; /* Görselin en boy oranını korur */
             width: auto;
             height: auto;
-            object-fit: contain; 
-            align-self: flex-start; /* Görselin modal içinde üstten hizalanmasını sağlar */
         }
 
         /* Galeri butonları güncellendi */
