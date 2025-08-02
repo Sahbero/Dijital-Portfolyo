@@ -1030,10 +1030,10 @@
             const modalZoomInBtn = document.getElementById('modalZoomInBtn');
             const modalZoomOutBtn = document.getElementById('modalZoomOutBtn');
             let currentScale = 1.0;
-            let scaleFactor = 0.2;
+            const scaleFactor = 0.2;
             const maxScale = 3.0;
 
-            // Sürükleme (pan) için değişkenler
+            // Kaydırma (pan) için değişkenler
             let isDragging = false;
             let startX, startY;
             let currentTranslateX = 0;
@@ -1084,6 +1084,7 @@
             // Fare ile sürükleme olayları
             modalImage.addEventListener('mousedown', (e) => {
                 if (currentScale > 1.0) {
+                    e.preventDefault(); // Varsayılan görsel sürükleme işlemini engelle
                     isDragging = true;
                     startX = e.clientX;
                     startY = e.clientY;
@@ -1091,8 +1092,8 @@
                     const matrix = window.getComputedStyle(modalImage).transform;
                     if (matrix !== 'none') {
                         const values = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
-                        initialTranslateX = parseFloat(values[4]);
-                        initialTranslateY = parseFloat(values[5]);
+                        initialTranslateX = parseFloat(values[4]) / currentScale;
+                        initialTranslateY = parseFloat(values[5]) / currentScale;
                     } else {
                         initialTranslateX = 0;
                         initialTranslateY = 0;
@@ -1108,18 +1109,19 @@
                 const deltaX = e.clientX - startX;
                 const deltaY = e.clientY - startY;
 
-                // Yeni sürükleme değerlerini hesapla ve sınırla
-                const imageWidth = modalImage.offsetWidth * currentScale;
-                const imageHeight = modalImage.offsetHeight * currentScale;
-                const containerWidth = galleryModal.offsetWidth;
-                const containerHeight = galleryModal.offsetHeight;
-
-                const maxPanX = Math.max(0, (imageWidth - containerWidth) / 2 / currentScale);
-                const maxPanY = Math.max(0, (imageHeight - containerHeight) / 2 / currentScale);
-
                 currentTranslateX = initialTranslateX + deltaX / currentScale;
                 currentTranslateY = initialTranslateY + deltaY / currentScale;
 
+                // Sınırlandırma (Clamping) işlemi
+                const imageRect = modalImage.getBoundingClientRect();
+                const modalRect = galleryModal.getBoundingClientRect();
+                const imageScaledWidth = imageRect.width * currentScale;
+                const imageScaledHeight = imageRect.height * currentScale;
+
+                // Görüntünün kenarının modal'ın kenarını geçmesini engelle
+                const maxPanX = (imageScaledWidth - modalRect.width) / 2 / currentScale;
+                const maxPanY = (imageScaledHeight - modalRect.height) / 2 / currentScale;
+                
                 currentTranslateX = Math.max(Math.min(currentTranslateX, maxPanX), -maxPanX);
                 currentTranslateY = Math.max(Math.min(currentTranslateY, maxPanY), -maxPanY);
 
@@ -1134,6 +1136,7 @@
             // Dokunmatik cihazlar için sürükleme olayları
             modalImage.addEventListener('touchstart', (e) => {
                 if (currentScale > 1.0) {
+                    e.preventDefault();
                     isDragging = true;
                     const touch = e.touches[0];
                     startX = touch.clientX;
@@ -1141,8 +1144,8 @@
                     const matrix = window.getComputedStyle(modalImage).transform;
                     if (matrix !== 'none') {
                         const values = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
-                        initialTranslateX = parseFloat(values[4]);
-                        initialTranslateY = parseFloat(values[5]);
+                        initialTranslateX = parseFloat(values[4]) / currentScale;
+                        initialTranslateY = parseFloat(values[5]) / currentScale;
                     } else {
                         initialTranslateX = 0;
                         initialTranslateY = 0;
@@ -1152,25 +1155,27 @@
             });
 
             modalImage.addEventListener('touchmove', (e) => {
-                if (!isDragging) return;
+                if (!isDragging || e.touches.length !== 1) return;
+                e.preventDefault();
                 const touch = e.touches[0];
                 const deltaX = touch.clientX - startX;
                 const deltaY = touch.clientY - startY;
 
-                const imageWidth = modalImage.offsetWidth * currentScale;
-                const imageHeight = modalImage.offsetHeight * currentScale;
-                const containerWidth = galleryModal.offsetWidth;
-                const containerHeight = galleryModal.offsetHeight;
-
-                const maxPanX = Math.max(0, (imageWidth - containerWidth) / 2 / currentScale);
-                const maxPanY = Math.max(0, (imageHeight - containerHeight) / 2 / currentScale);
-
                 currentTranslateX = initialTranslateX + deltaX / currentScale;
                 currentTranslateY = initialTranslateY + deltaY / currentScale;
 
+                // Sınırlandırma (Clamping) işlemi
+                const imageRect = modalImage.getBoundingClientRect();
+                const modalRect = galleryModal.getBoundingClientRect();
+                const imageScaledWidth = imageRect.width * currentScale;
+                const imageScaledHeight = imageRect.height * currentScale;
+
+                const maxPanX = (imageScaledWidth - modalRect.width) / 2 / currentScale;
+                const maxPanY = (imageScaledHeight - modalRect.height) / 2 / currentScale;
+                
                 currentTranslateX = Math.max(Math.min(currentTranslateX, maxPanX), -maxPanX);
                 currentTranslateY = Math.max(Math.min(currentTranslateY, maxPanY), -maxPanY);
-                
+
                 applyTransform();
             });
 
