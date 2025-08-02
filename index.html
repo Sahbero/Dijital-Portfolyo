@@ -4,22 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>İç Mimar Portfolyo | [Adınız Soyadınız]</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         /* Genel Stil Ayarları */
         :root {
             --primary-bg: #FFFFFF;
             --secondary-bg: #F9F9F9;
-            --text-color: #333333;
-            --dark-text: #1A1A1A;
-            --accent-color: #A37F66; /* Daha sıcak, toprak tonlu kahve */
-            --light-accent: #E0D4CD; /* Açık vurgu rengi */
-            --border-color: #EEEEEE;
-            --shadow-light: rgba(0, 0, 0, 0.08);
-            --header-height: 80px;
+            --text-color: #1D1D1F; /* Apple'ın ana metin rengi */
+            --light-text: #6E6E73; /* Apple'ın ikincil metin rengi */
+            --accent-color: #0071E3; /* Apple'ın mavi vurgu rengi */
+            --border-color: #DEDEDE;
+            --shadow-light: rgba(0, 0, 0, 0.1);
+            --header-height: 60px;
+            --nav-link-padding: 14px 20px;
+            /* Apple'a özgü font ailesi, sistem fontları tercih edilir */
+            --font-family-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
         }
 
         * {
@@ -29,38 +28,45 @@
         }
 
         html {
-            scroll-behavior: smooth;
+            scroll-behavior: smooth; /* Akıcı kaydırma */
         }
 
         body {
-            font-family: 'Helvetica Neue', 'Helvetica', Arial, sans-serif;
-            line-height: 1.6;
+            font-family: var(--font-family-primary);
+            line-height: 1.5;
             color: var(--text-color);
             background-color: var(--primary-bg);
-            -webkit-font-smoothing: antialiased;
+            -webkit-font-smoothing: antialiased; /* Fontların daha pürüzsüz görünmesi */
             -moz-osx-font-smoothing: grayscale;
         }
 
-        /* Konteyner */
+        /* Konteyner: İçeriği ortalar ve maksimum genişlik verir */
         .container {
-            max-width: 1200px;
+            max-width: 980px;
             margin: 0 auto;
-            padding: 0 25px; /* Yanlardan daha fazla boşluk */
+            padding: 0 20px;
         }
 
-        /* Başlıklar */
+        /* Başlık Stilleri */
         h1, h2, h3, h4, h5, h6 {
-            font-weight: 700;
-            color: var(--dark-text);
-            margin-bottom: 20px;
-            line-height: 1.2;
+            font-weight: 600; /* Apple'ın kullandığı yarı kalınlık */
+            color: var(--text-color);
+            margin-bottom: 1em; /* Paragraflardan daha az boşluk */
+            line-height: 1.1;
         }
 
-        h1 { font-size: 3.5em; margin-bottom: 25px; }
-        h2 { font-size: 2.5em; margin-bottom: 30px; }
-        h3 { font-size: 1.8em; margin-bottom: 15px; }
+        h1 { font-size: 2.8em; margin-bottom: 0.6em; }
+        h2 { font-size: 2.2em; margin-bottom: 0.8em; }
+        h3 { font-size: 1.6em; margin-bottom: 1em; }
 
-        /* Bağlantılar */
+        p {
+            font-size: 1em;
+            color: var(--light-text); /* Daha açık metin rengi */
+            line-height: 1.7;
+            margin-bottom: 1.2em;
+        }
+
+        /* Bağlantı Stilleri */
         a {
             color: var(--accent-color);
             text-decoration: none;
@@ -68,51 +74,49 @@
         }
 
         a:hover {
-            color: var(--dark-text);
+            color: inherit; /* Hover'da varsayılan metin rengine döner */
+            text-decoration: underline; /* Altı çizili görünüm */
         }
 
-        /* Butonlar */
+        /* Buton Stilleri */
         .btn {
             display: inline-block;
-            background-color: var(--accent-color);
-            color: var(--primary-bg);
-            padding: 14px 30px;
-            border-radius: 5px;
-            text-transform: uppercase;
+            padding: 12px 24px;
+            border-radius: 8px; /* Yumuşak kenarlar */
+            font-size: 1em;
             font-weight: 500;
-            letter-spacing: 1px;
-            transition: background-color 0.3s ease, transform 0.2s ease;
-            border: none;
+            text-align: center;
             cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+            border: 1px solid var(--border-color);
+            background-color: transparent;
+            color: var(--text-color);
+        }
+
+        .btn.primary {
+            background-color: var(--accent-color);
+            color: #fff;
+            border-color: transparent; /* Ana vurgu rengi butonu */
         }
 
         .btn:hover {
-            background-color: var(--dark-text); /* Bu kısmı değiştirdik */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-        /* Hero butonu için özel hover efekti */
-        .hero .btn:hover {
-            background-color: var(--accent-color); /* Kendi vurgu renginize dönebilir veya daha koyu bir ton olabilir */
-            filter: brightness(1.2); /* Hafif parlaklık */
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+            background-color: var(--border-color); /* Hafif gri arka plan */
         }
 
+        .btn.primary:hover {
+            background-color: #0051a3; /* Vurgu renginin koyu tonu */
+        }
 
         /* Header / Navigasyon */
         .header {
-            background-color: var(--primary-bg);
+            background-color: rgba(255, 255, 255, 0.95); /* Hafif şeffaf beyaz */
             padding: 15px 0;
             border-bottom: 1px solid var(--border-color);
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 8px var(--shadow-light);
-            min-height: var(--header-height);
-            display: flex;
-            align-items: center;
+            -webkit-backdrop-filter: blur(10px); /* Arka plan bulanıklığı (iOS'tan esinlenme) */
+            backdrop-filter: blur(10px);
         }
 
         .header .container {
@@ -122,13 +126,9 @@
         }
 
         .logo {
-            font-size: 2em;
+            font-size: 1.2em;
             font-weight: 700;
-            color: var(--dark-text);
-            letter-spacing: -0.5px;
-        }
-        .logo a {
-            color: var(--dark-text);
+            color: var(--text-color);
         }
 
         .nav ul {
@@ -137,534 +137,314 @@
         }
 
         .nav ul li {
-            margin-left: 35px;
+            margin-left: 20px;
         }
 
         .nav ul li a {
-            font-weight: 500;
+            display: block;
             color: var(--text-color);
-            transition: color 0.3s ease;
-            position: relative;
-            padding: 5px 0; /* Hover efekti için alan */
+            padding: var(--nav-link-padding);
+            transition: opacity 0.3s ease;
         }
 
-        .nav ul li a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            background: var(--accent-color);
-            bottom: -8px;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: width .3s ease;
+        .nav ul li a:hover {
+            opacity: 0.7;
+            text-decoration: none;
         }
 
-        .nav ul li a:hover::after {
-            width: 100%;
-        }
-
-        /* Hamburger Menü (Mobil için) */
-        .menu-toggle {
-            display: none;
-            flex-direction: column;
-            cursor: pointer;
-            width: 30px;
-            height: 20px;
-            justify-content: space-between;
-        }
-
-        .menu-toggle span {
-            display: block;
-            width: 100%;
-            height: 2px;
-            background: var(--dark-text);
-            border-radius: 2px;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .menu-toggle.open span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .menu-toggle.open span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .menu-toggle.open span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -5px);
-        }
-
-        .nav.open {
-            display: flex;
-            flex-direction: column;
-            position: absolute;
-            top: var(--header-height);
-            left: 0;
-            width: 100%;
-            background-color: var(--primary-bg);
-            box-shadow: 0 8px 10px var(--shadow-light);
-            padding: 20px 0;
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        .nav.open ul {
-            flex-direction: column;
-            text-align: center;
-            width: 100%;
-        }
-
-        .nav.open ul li {
-            margin: 10px 0;
-        }
-        .nav.open ul li a {
-            font-size: 1.2em;
-            display: block;
-            padding: 10px;
-        }
-        .nav.open ul li a::after {
-            bottom: -3px;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Kahraman Bölümü (Hero Section) */
+        /* Hero Section (Ana Sayfa Başlık Alanı) */
         .hero {
-            position: relative;
-            height: 80vh; /* Daha büyük hero alanı */
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            padding: 120px 0;
             text-align: center;
-            overflow: hidden;
-            background-color: var(--secondary-bg); /* Placeholder için */
+            background-color: var(--primary-bg); /* Sade arka plan */
         }
 
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            /* Arka plan görseli için soyut mimari desen veya doku */
-            background: url('https://via.placeholder.com/1920x1080/D0D0D0/999999?text=Soyut+Mimari+Desen') no-repeat center center/cover;
-            filter: brightness(0.7); /* Görselin okunurluğunu artırmak için hafif karartma */
-            z-index: 1;
+        .hero-image {
+            max-width: 100%;
+            height: auto;
+            margin-top: 4em; /* Yazıdan sonra daha fazla boşluk */
+            margin-bottom: 2em;
+            border-radius: 8px;
+            box-shadow: 0 4px 16px var(--shadow-light); /* Hafif gölge */
+            object-fit: cover;
+            aspect-ratio: 16/9; /* Daha geniş bir görüntü oranı */
         }
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            color: var(--primary-bg); /* Beyaz metin */
-            max-width: 900px;
-            padding: 20px;
-            text-shadow: 0 2px 5px rgba(0,0,0,0.6); /* Metin okunabilirliğini artırmak için gölge */
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 0.5em;
         }
 
-        .hero-content h1 {
-            font-size: 4em;
-            margin-bottom: 20px;
-            color: var(--primary-bg); /* Beyaz kalacak */
+        .hero p {
+            font-size: 1.2em;
+            max-width: 700px;
+            margin: 0 auto 2em;
         }
 
-        .hero-content p {
-            font-size: 1.6em;
-            margin-bottom: 40px;
-            font-weight: 300;
-            color: rgba(255, 255, 255, 0.9); /* Daha belirgin beyaz */
+        /* Bölüm Genel Stili */
+        .section {
+            padding: 80px 0;
+            background-color: var(--secondary-bg);
         }
 
-        /* Bölüm Başlıkları Genel Stili */
-        .section-heading {
+        .section.light {
+            background-color: var(--primary-bg); /* Beyaz arka plan */
+        }
+
+        .section-title {
             text-align: center;
-            margin-bottom: 60px;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .section-heading h2 {
-            display: inline-block;
-            font-weight: 700;
-            position: relative;
-            padding-bottom: 10px;
-        }
-
-        .section-heading h2::after {
-            content: '';
-            position: absolute;
-            width: 60px; /* Daha kısa çizgi */
-            height: 3px;
-            background-color: var(--accent-color);
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
+            margin-bottom: 3em;
+            font-size: 2em;
+            font-weight: 600;
+            color: var(--text-color);
         }
 
         /* Hakkımda Bölümü */
-        .about-section {
-            padding: 100px 0;
-            background-color: var(--primary-bg);
-        }
-
-        .about-content-grid {
+        .about-section .container {
             display: grid;
-            grid-template-columns: 1fr 1.5fr; /* Resim daha küçük, metin daha geniş */
-            gap: 60px;
+            grid-template-columns: 1fr 1fr; /* İki sütunlu düzen */
+            gap: 40px;
             align-items: center;
         }
 
-        .about-image {
+        .about-image-container {
             text-align: center;
         }
 
-        .about-image img {
+        .about-image-container img {
             max-width: 100%;
             height: auto;
             border-radius: 8px;
-            box-shadow: 0 10px 25px var(--shadow-light);
+            box-shadow: 0 4px 16px var(--shadow-light);
             object-fit: cover;
-            aspect-ratio: 3/4; /* Dikey fotoğraf oranı */
+            aspect-ratio: 3/4; /* Dikey portre fotoğrafı */
         }
 
-        .about-text h3 {
-            font-size: 2em;
-            margin-bottom: 15px;
-            color: var(--accent-color);
-        }
-
-        .about-text p {
-            margin-bottom: 15px;
-            font-size: 1.1em;
-            line-height: 1.7;
-        }
-
+        /* Yetenekler Bölümü */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 25px;
-            margin-top: 40px;
+            gap: 20px;
         }
 
         .skill-item {
-            text-align: center;
             padding: 20px;
-            background-color: var(--secondary-bg);
+            background-color: var(--primary-bg);
             border-radius: 8px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            text-align: center;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .skill-item:hover {
             transform: translateY(-5px);
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
         }
 
+        .skill-item h3 {
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
+        }
+
+        .skill-item p {
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
         .skill-item i {
-            font-size: 2.5em;
-            color: var(--accent-color);
+            font-size: 2.2em; /* İkon boyutunu büyütme */
             margin-bottom: 15px;
+            color: var(--accent-color); /* Vurgu renginde ikonlar */
         }
 
-        .skill-item h4 {
-            font-size: 1.3em;
-            margin-bottom: 5px;
-        }
 
         /* Portfolyo Bölümü */
-        .portfolio-section {
-            padding: 100px 0;
-            background-color: var(--secondary-bg);
-        }
-
-        .portfolio-filters {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .portfolio-filters button {
-            background: none;
-            border: 1px solid var(--accent-color);
-            color: var(--accent-color);
-            padding: 10px 20px;
-            margin: 0 10px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
-
-        .portfolio-filters button.active,
-        .portfolio-filters button:hover {
-            background-color: var(--accent-color);
-            color: var(--primary-bg);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-
-        .portfolio-grid {
+        .portfolio-section .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 30px;
         }
 
         .portfolio-item {
-            background-color: var(--primary-bg);
             border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 6px 15px var(--shadow-light);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-            position: relative; /* Başlık animasyonu için */
+            box-shadow: 0 4px 12px var(--shadow-light);
+            transition: transform 0.3s ease;
         }
 
         .portfolio-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: scale(1.03); /* Hafif büyüme efekti */
+            box-shadow: 0 6px 18px rgba(0,0,0,0.15);
         }
 
         .portfolio-item img {
             width: 100%;
-            height: 280px; /* Daha büyük görsel alanı */
-            object-fit: cover;
+            height: 200px; /* Sabit yükseklik */
+            object-fit: cover; /* Görseli bozmadan sığdırır */
             display: block;
-            transition: filter 0.5s ease;
-            filter: grayscale(80%); /* Hafif siyah beyaz önizleme */
-        }
-
-        .portfolio-item:hover img {
-            filter: grayscale(0%);
         }
 
         .portfolio-info {
-            padding: 20px;
+            padding: 15px;
             text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .portfolio-info h3 {
-            margin-bottom: 5px;
-            font-size: 1.6em;
-            transition: transform 0.3s ease;
-        }
-        
-        /* Hizmetler Bölümü - Yeni Ad: Yaklaşımım */
-        .approach-section {
-            padding: 100px 0;
             background-color: var(--primary-bg);
         }
 
-        .approach-grid {
+        .portfolio-info h3 {
+            font-size: 1.1em;
+            margin-bottom: 0.3em;
+            color: var(--text-color);
+        }
+
+        .portfolio-filters {
+            text-align: center;
+            margin-bottom: 2em;
+            display: flex; /* Butonları yan yana hizalar */
+            flex-wrap: wrap; /* Küçük ekranlarda alta geçmelerini sağlar */
+            justify-content: center;
+            gap: 10px; /* Butonlar arası boşluk */
+        }
+
+        .portfolio-filters button {
+            background: none;
+            border: none;
+            color: var(--light-text); /* Daha açık metin rengi */
+            padding: 8px 15px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .portfolio-filters button.active,
+        .portfolio-filters button:hover {
+            color: var(--text-color); /* Hover'da daha koyu */
+            text-decoration: underline; /* Altı çizili görünüm */
+        }
+
+        /* Yaklaşımım Bölümü */
+        .approach-section .container {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
             text-align: center;
         }
 
         .approach-step {
-            background-color: var(--secondary-bg);
             padding: 30px;
+            background-color: var(--primary-bg);
             border-radius: 8px;
-            box-shadow: 0 4px 10px var(--shadow-light);
-            transition: transform 0.3s ease;
+            box-shadow: 0 2px 8px var(--shadow-light);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .approach-step:hover {
             transform: translateY(-5px);
-        }
-
-        .approach-step i {
-            font-size: 3em;
-            color: var(--accent-color);
-            margin-bottom: 20px;
+            box-shadow: 0 6px 16px rgba(0,0,0,0.15);
         }
 
         .approach-step h3 {
-            font-size: 1.7em;
-            margin-bottom: 10px;
+            font-size: 1.2em;
+            margin-bottom: 0.5em;
         }
 
         .approach-step p {
-            font-size: 1em;
-            color: #555;
+            font-size: 0.9em;
+            color: var(--light-text);
+        }
+
+        .approach-step i {
+            font-size: 2em;
+            color: var(--accent-color);
+            margin-bottom: 0.8em;
         }
 
         /* İletişim Bölümü */
         .contact-section {
-            background-color: var(--dark-text); /* Koyu arka plan */
-            color: var(--primary-bg);
-            padding: 100px 0;
             text-align: center;
+            padding: 80px 0;
+            background-color: var(--secondary-bg);
         }
 
-        .contact-section h2 {
-            color: var(--primary-bg);
-            margin-bottom: 20px;
+        .contact-info {
+            margin-top: 2em;
         }
 
-        .contact-section p {
+        .contact-info p {
             font-size: 1.1em;
-            margin-bottom: 40px;
-            color: rgba(255,255,255,0.8);
+            margin-bottom: 0.5em;
+            color: var(--text-color);
         }
 
-        .contact-info-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 40px;
+        .social-links {
+            margin-top: 1.5em;
         }
 
-        .contact-item {
-            background-color: rgba(255,255,255,0.08); /* Hafif şeffaf beyaz arka plan */
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-            flex: 1;
-            min-width: 280px;
-            max-width: 380px;
-            text-align: left; /* Metin sola hizalı */
-            transition: background-color 0.3s ease;
-        }
-        .contact-item:hover {
-            background-color: rgba(255,255,255,0.15);
-        }
-
-        .contact-item i {
-            font-size: 2.2em;
-            color: var(--accent-color);
-            margin-bottom: 15px;
-        }
-
-        .contact-item h3 {
+        .social-links a {
+            display: inline-block;
+            margin: 0 10px;
             font-size: 1.5em;
-            margin-bottom: 10px;
-            color: var(--primary-bg);
-        }
-
-        .contact-item p, .contact-item a {
-            font-size: 1.05em;
-            color: rgba(255,255,255,0.7);
-        }
-
-        .contact-item a {
-            color: var(--light-accent);
+            color: var(--light-text);
             transition: color 0.3s ease;
         }
-        .contact-item a:hover {
-            color: var(--primary-bg);
-        }
 
-        .social-links-contact {
-            margin-top: 50px;
+        .social-links a:hover {
+            color: var(--accent-color);
         }
-
-        .social-links-contact a {
-            display: inline-block;
-            margin: 0 15px;
-            font-size: 2.5em;
-            color: var(--light-accent);
-            transition: color 0.3s ease, transform 0.2s ease;
-        }
-
-        .social-links-contact a:hover {
-            color: var(--primary-bg);
-            transform: translateY(-3px);
-        }
-
 
         /* Footer */
         .footer {
-            background-color: var(--dark-text);
-            color: rgba(255,255,255,0.6);
+            background-color: var(--secondary-bg);
+            color: var(--light-text);
             text-align: center;
-            padding: 30px 0;
+            padding: 40px 0;
             font-size: 0.9em;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid var(--border-color);
         }
 
-        /* Responsive Ayarlar */
-        @media (max-width: 992px) {
-            .hero-content h1 {
-                font-size: 3em;
-            }
-            .hero-content p {
-                font-size: 1.4em;
-            }
-            .about-content-grid {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            .about-image {
-                order: -1; /* Resmi yukarı taşı */
-                margin-bottom: 30px;
-            }
-        }
-
+        /* Mobil Uyumluluk */
         @media (max-width: 768px) {
             .header .container {
-                flex-direction: row; /* Navigasyon ve logo aynı satırda kalsın */
-                justify-content: space-between;
-                align-items: center;
-            }
-            .nav {
-                display: none; /* Varsayılan olarak gizli */
-            }
-            .menu-toggle {
-                display: flex; /* Hamburger menüyü göster */
-            }
-            .hero {
-                height: 60vh;
-            }
-            .hero-content h1 {
-                font-size: 2.5em;
-            }
-            .hero-content p {
-                font-size: 1.2em;
-            }
-            h2 {
-                font-size: 2em;
-            }
-            h3 {
-                font-size: 1.5em;
-            }
-            .portfolio-filters button {
-                margin: 5px;
-                padding: 8px 15px;
-                font-size: 0.9em;
-            }
-            .portfolio-grid, .approach-grid, .skills-grid {
-                grid-template-columns: 1fr;
-            }
-            .contact-info-grid {
                 flex-direction: column;
-                align-items: center;
+                align-items: flex-start;
             }
-            .contact-item {
-                width: 90%;
+            .logo {
+                margin-bottom: 10px;
             }
-        }
-
-        @media (max-width: 480px) {
-            .hero-content h1 {
-                font-size: 2em;
+            .nav ul {
+                flex-direction: column;
+                width: 100%;
+                text-align: center;
+                display: none; /* Mobil menü başlangıçta gizli */
             }
-            .hero-content p {
+            .nav ul.show { /* Mobil menü açıkken */
+                display: flex;
+            }
+            .nav ul li {
+                margin-left: 0;
+                border-top: 1px solid var(--border-color);
+            }
+            .nav ul li:first-child {
+                border-top: none;
+            }
+            .about-section .container {
+                grid-template-columns: 1fr; /* Tek sütun */
+            }
+            .about-image-container {
+                order: -1; /* Resim metnin üstüne çıkar */
+                margin-bottom: 30px;
+            }
+            .hero h1 {
+                font-size: 2.2em;
+            }
+            .hero p {
                 font-size: 1em;
             }
-            .container {
-                padding: 0 15px;
-            }
-            .section-heading h2 {
+            .section-title {
                 font-size: 1.8em;
             }
-            .btn {
-                padding: 10px 20px;
-                font-size: 0.9em;
+            .portfolio-filters {
+                flex-direction: column; /* Butonları dikey sırala */
+                gap: 5px;
             }
         }
     </style>
@@ -683,69 +463,62 @@
                     <li><a href="#contact">İletişim</a></li>
                 </ul>
             </nav>
-            <div class="menu-toggle" id="mobileMenuToggle">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            <button class="menu-toggle" aria-label="Menüyü Aç/Kapat" style="display: none; background: none; border: none; font-size: 1.5em; cursor: pointer; color: var(--text-color);">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
     <main>
         <section id="home" class="hero">
-            <div class="hero-bg"></div>
-            <div class="hero-content">
-                <h1>Tasarım Dokunuşları: Mekanlara Ruh Veren Detaylar</h1>
-                <p>İç mimar olarak, her boş alanı estetik, fonksiyonel ve size özel bir hikayeye dönüştürüyorum. Detaylara verdiğim önemle, hayallerinizdeki mekanları gerçeğe dönüştürmek için buradayım.</p>
-                <a href="#portfolio" class="btn">Portfolyomu Keşfet</a>
+            <div class="container">
+                <h1>Mekanlara Yeni Bir Soluk</h1>
+                <p>Minimalist ve işlevsel tasarımlarla yaşam alanlarınızı dönüştürüyorum. İç mimarlık projelerim ve vizyonum hakkında daha fazla bilgi edinin.</p>
+                <a href="#portfolio" class="btn primary">Portfolyoyu Keşfet</a>
             </div>
+            <img src="https://via.placeholder.com/1200x675/F0F0F0/888?text=Yüksek+Çözünürlüklü+Proje+Görseli" alt="Öne Çıkan Proje Görseli" class="hero-image">
         </section>
 
-        <section id="about" class="about-section">
+        <section id="about" class="about-section light">
             <div class="container">
-                <div class="section-heading">
-                    <h2>Hakkımda</h2>
+                <div class="about-image-container">
+                    <img src="https://via.placeholder.com/400x500/E0E0E0/666?text=Profesyonel+Fotoğrafınız" alt="Profesyonel Fotoğraf">
                 </div>
-                <div class="about-content-grid">
-                    <div class="about-image">
-                        <img src="https://via.placeholder.com/450x600/F0F0F0/A37F66?text=Profesyonel+Portreniz" alt="[Adınız Soyadınız] Portresi"> </div>
-                    <div class="about-text">
-                        <h3>Vizyonum ve Felsefem</h3>
-                        <p>Merhaba, ben **[Adınız Soyadınız]**. İç mimarlık benim için sadece estetik mekanlar yaratmak değil, aynı zamanda insanların yaşam kalitesini artıran ve onlara ilham veren ortamlar tasarlamaktır. Her projeye, müşterimin kişiliğini ve ihtiyaçlarını merkeze alarak yaklaşıyor, fonksiyonellik ile sanatsal ifadeyi bir araya getiriyorum. Amacım, her detayı özenle düşünülmüş, hikayesi olan ve kullanıcılarına pozitif enerji veren mekanlar inşa etmek.</p>
-                        <p>Mimari çizimlerimin hassasiyetinden, 3D renderlarımın gerçekçiliğine ve el çizimlerimin sıcaklığına kadar her aşamada, tasarımın gücüne inanıyorum. Sadece güzel değil, aynı zamanda yaşanabilir ve sürdürülebilir mekanlar yaratmaya odaklanıyorum.</p>
-
-                        <h3>Yeteneklerim ve Uzmanlık Alanlarım</h3>
-                        <div class="skills-grid">
-                            <div class="skill-item">
-                                <i class="fas fa-drafting-compass"></i>
-                                <h4>Konut Tasarımı</h4>
-                                <p>Fonksiyonel ve estetik evler.</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-building"></i>
-                                <h4>Ticari Mekanlar</h4>
-                                <p>Ofis, kafe, restoran vb. tasarımlar.</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-couch"></i> <h4>Mobilya Tasarımı</h4>
-                                <p>Mekana özel mobilya çözümleri.</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-paint-brush"></i>
-                                <h4>Malzeme Seçimi</h4>
-                                <p>Estetik ve dayanıklı malzeme bilgisi.</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-pencil-ruler"></i>
-                                <h4>El Çizimi</h4>
-                                <p>Konsept çizimleri ve eskizler.</p>
-                            </div>
-                            <div class="skill-item">
-                                <i class="fas fa-cube"></i>
-                                <h4>3D Modelleme & Render</h4>
-                                <p>Gerçekçi görselleştirmeler.</p>
-                            </div>
-                            </div>
+                <div>
+                    <h2>Hakkımda</h2>
+                    <p>Merhaba, ben **[Adınız Soyadınız]**. İç mimarlık tutkum, mekanları sadece estetik açıdan hoş değil, aynı zamanda kullanıcılarının ihtiyaçlarına mükemmel şekilde cevap veren işlevsel alanlara dönüştürmek üzerine kurulu. Minimalist tasarımın gücüne inanıyor ve her projeye özgün bir bakış açısıyla yaklaşıyorum. Her detayın bir hikaye anlattığına ve tasarımın yaşam kalitesini artırdığına inanıyorum.</p>
+                    <h3>Yeteneklerim ve Uzmanlık Alanlarım</h3>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-home"></i>
+                            <h3>Konut Tasarımı</h3>
+                            <p>Yaşam alanlarınızı kişiselleştirin.</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-building"></i>
+                            <h3>Ticari Mekanlar</h3>
+                            <p>Markanızı yansıtan tasarımlar.</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-couch"></i>
+                            <h3>Mobilya Tasarımı</h3>
+                            <p>Mekana özel mobilya çözümleri.</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-palette"></i>
+                            <h3>Malzeme Seçimi</h3>
+                            <p>Estetik ve dayanıklı malzeme bilgisi.</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-pencil-alt"></i>
+                            <h3>El Çizimleri</h3>
+                            <p>Konsept ve detay eskizleri.</p>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cube"></i>
+                            <h3>3D Modelleme & Render</h3>
+                            <p>Gerçekçi görselleştirmeler.</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -753,9 +526,7 @@
 
         <section id="portfolio" class="portfolio-section">
             <div class="container">
-                <div class="section-heading">
-                    <h2>Portfolyo</h2>
-                </div>
+                <h2 class="section-title">Portfolyo</h2>
                 <div class="portfolio-filters">
                     <button class="active" data-filter="all">Tümü</button>
                     <button data-filter="projects">Projeler</button>
@@ -765,81 +536,80 @@
                 </div>
                 <div class="portfolio-grid">
                     <div class="portfolio-item" data-category="projects">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=Modern+Ev+Projesi" alt="Modern Ev Projesi">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+1" alt="Modern Konut Projesi">
                         <div class="portfolio-info">
-                            <h3>Modern Ev Projesi</h3>
-                            <p>İstanbul - Konut Tasarımı</p>
+                            <h3>Modern Konut</h3>
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="projects">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=Ofis+Tasarımı" alt="Yenilikçi Ofis Tasarımı">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+2" alt="Ofis Alanı Tasarımı">
                         <div class="portfolio-info">
-                            <h3>Yenilikçi Ofis Tasarımı</h3>
-                            <p>Ankara - Ticari Alan</p>
+                            <h3>Ofis Alanı</h3>
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="sketches">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=El+Çizimi+Kroki" alt="El Çizimi Konsept Kroki">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+1" alt="Konsept Eskizi">
                         <div class="portfolio-info">
-                            <h3>Konsept Kroki: Oturma Alanı</h3>
-                            <p>El Çizimi</p>
+                            <h3>Konsept Eskizi</h3>
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="renders">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=Gerçekçi+3D+Render" alt="Gerçekçi 3D Salon Renderı">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+1" alt="3D İç Mekan Render">
                         <div class="portfolio-info">
-                            <h3>Lüks Salon 3D Render</h3>
-                            <p>3D Görselleştirme</p>
+                            <h3>3D Görselleştirme</h3>
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="projects">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=Butik+Kafe" alt="Butik Kafe Tasarımı">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+3" alt="Butik Kafe Tasarımı">
                         <div class="portfolio-info">
-                            <h3>Butik Kafe Tasarımı</h3>
-                            <p>İzmir - Ticari Alan</p>
+                            <h3>Kafe Tasarımı</h3>
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="technical">
-                        <img src="https://via.placeholder.com/600x400/D0D0D0/A37F66?text=Teknik+Çizim+Kat+Planı" alt="Kat Planı Çizimi">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+1" alt="Kat Planı">
                         <div class="portfolio-info">
-                            <h3>Daire Kat Planı</h3>
-                            <p>Teknik Çizim</p>
+                            <h3>Kat Planı</h3>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="renders">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+2" alt="Banyo Renderı">
+                        <div class="portfolio-info">
+                            <h3>İç Mekan Render</h3>
+                        </div>
+                    </div>
+                    <div class="portfolio-item" data-category="sketches">
+                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+2" alt="Mobilya Eskizi">
+                        <div class="portfolio-info">
+                            <h3>Mobilya Eskizi</h3>
                         </div>
                     </div>
                     </div>
             </div>
         </section>
 
-        <section id="approach" class="approach-section">
+        <section id="approach" class="approach-section light">
             <div class="container">
-                <div class="section-heading">
-                    <h2>Yaklaşımım</h2>
-                </div>
+                <h2 class="section-title">Yaklaşımım</h2>
                 <div class="approach-grid">
                     <div class="approach-step">
                         <i class="fas fa-comments"></i>
-                        <h3>1. Keşif ve Danışmanlık</h3>
-                        <p>İhtiyaçlarınızı, beklentilerinizi ve hayallerinizi anlamak için kapsamlı bir görüşme yapıyoruz. Mekan analizi ve ön fizibilite çalışmaları ile projenin temelini atıyoruz.</p>
+                        <h3>1. Dinleme ve Anlama</h3>
+                        <p>İhtiyaçlarınızı ve vizyonunuzu anlamak, her projenin başlangıç noktasıdır. Detaylı bir dinleme süreci ile hedeflerinizi belirliyoruz.</p>
                     </div>
                     <div class="approach-step">
                         <i class="fas fa-lightbulb"></i>
-                        <h3>2. Konsept ve Tasarım</h3>
-                        <p>Topladığımız veriler ışığında, sizin için özgün ve yenilikçi bir konsept oluşturuyoruz. El çizimleri, eskizler ve moodboard'lar ile ilk görselleştirmeleri sunuyoruz.</p>
+                        <h3>2. Konsept Geliştirme</h3>
+                        <p>Fikirlerinizi somutlaştırmak için özgün ve yenilikçi konseptler geliştiriyoruz. Moodboardlar ve ilk eskizlerle görselleştirmeye başlıyoruz.</p>
                     </div>
                     <div class="approach-step">
-                        <i class="fas fa-pencil-ruler"></i>
-                        <h3>3. Detaylandırma ve 3D Modelleme</h3>
-                        <p>Onayladığınız konsepti teknik çizimlerle detaylandırıyor, 3D modellemeler ve gerçekçi renderlar ile projenin son halini görselleştiriyoruz.</p>
+                        <i class="fas fa-ruler-combined"></i>
+                        <h3>3. Detaylandırma ve Planlama</h3>
+                        <p>Onaylanan konsepti teknik çizimler, detay planları ve 3D modellemelerle uygulama aşamasına hazırlıyoruz.</p>
                     </div>
                     <div class="approach-step">
-                        <i class="fas fa-hammer"></i>
-                        <h3>4. Uygulama ve Kontrol</h3>
-                        <p>Tasarımların eksiksiz ve yüksek kalitede hayata geçirilmesi için uygulama sürecini denetliyor, malzeme tedarikini ve işçiliği koordine ediyoruz.</p>
-                    </div>
-                    <div class="approach-step">
-                        <i class="fas fa-check-double"></i>
-                        <h3>5. Teslim ve Destek</h3>
-                        <p>Projenin tamamlanmasının ardından, size anahtar teslim bir mekan sunuyor ve sonrasında da ihtiyaç duyabileceğiniz destekleri sağlamaya devam ediyoruz.</p>
+                        <i class="fas fa-tools"></i>
+                        <h3>4. Uygulama ve Yönetim</h3>
+                        <p>Tasarımınızı hayata geçirme sürecinde titizlikle çalışıyor, malzeme tedariki ve uygulama koordinasyonunu sağlıyoruz.</p>
                     </div>
                 </div>
             </div>
@@ -847,28 +617,13 @@
 
         <section id="contact" class="contact-section">
             <div class="container">
-                <div class="section-heading">
-                    <h2 style="color: var(--primary-bg);">İletişime Geçin</h2>
-                </div>
+                <h2 class="section-title">İletişim</h2>
                 <p>Projeniz hakkında konuşmak, bir danışmanlık randevusu ayarlamak veya sadece merhaba demek için bana ulaşmaktan çekinmeyin.</p>
-                <div class="contact-info-grid">
-                    <div class="contact-item">
-                        <i class="fas fa-envelope"></i>
-                        <h3>E-posta</h3>
-                        <p><a href="mailto:info@sizinadiniz.com">info@sizinadiniz.com</a></p> </div>
-                    <div class="contact-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <h3>Telefon</h3>
-                        <p><a href="tel:+905XXYYYYZZZ">+90 (5XX) YYYY ZZZ</a></p> </div>
-                    <div class="contact-item">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <h3>Adres</h3>
-                        <p>[Şehriniz], Türkiye</p> <p>Randevu ile görüşme</p>
-                    </div>
-                </div>
-                <div class="social-links-contact">
-                    <a href="https://www.linkedin.com/in/sizinprofiliniz" target="_blank" title="LinkedIn Profiliniz"><i class="fab fa-linkedin"></i></a>
-                    <a href="https://www.instagram.com/sizinprofiliniz" target="_blank" title="Instagram Profiliniz"><i class="fab fa-instagram"></i></a>
+                <div class="contact-info">
+                    <p>E-posta: <a href="mailto:info@sizinadiniz.com">info@sizinadiniz.com</a></p> <p>Telefon: <a href="tel:+905XXXXXXXXX">+90 5XX XXX XX XX</a></p> </div>
+                <div class="social-links">
+                    <a href="https://www.linkedin.com/in/profiliniz" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.instagram.com/profiliniz" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
                     </div>
             </div>
         </section>
@@ -877,7 +632,7 @@
     <footer class="footer">
         <div class="container">
             <p>&copy; 2025 [Adınız Soyadınız]. Tüm Hakları Saklıdır.</p>
-            <p>Tasarım ve Kodlama: [Adınız Soyadınız]</p>
+            <p>Tasarım ve Geliştirme: [Adınız Soyadınız]</p>
         </div>
     </footer>
 
@@ -897,21 +652,14 @@
                     behavior: 'smooth'
                 });
 
-                // Mobil menü açıksa kapat
+                // Mobil menü açıksa kapat (eğer varsa)
                 const nav = document.getElementById('mainNav');
-                const menuToggle = document.getElementById('mobileMenuToggle');
-                if (nav.classList.contains('open')) {
-                    nav.classList.remove('open');
-                    menuToggle.classList.remove('open');
+                const menuToggle = document.querySelector('.menu-toggle');
+                if (nav.classList.contains('show')) {
+                    nav.classList.remove('show');
+                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>'; // İkonu geri çevir
                 }
             });
-        });
-
-        // Mobil Menü Toggle
-        document.getElementById('mobileMenuToggle').addEventListener('click', function() {
-            const nav = document.getElementById('mainNav');
-            this.classList.toggle('open');
-            nav.classList.toggle('open');
         });
 
         // Portfolyo Filtreleme
@@ -929,26 +677,46 @@
 
                     portfolioItems.forEach(item => {
                         const category = item.dataset.category;
-                        // Her zaman blok olarak başlayın, sonra animasyonu tetikleyin
-                        if (filter === 'all' || category === filter) {
+                        if (filter === 'all' || category === filter || (filter === 'projects' && (category === 'residential' || category === 'commercial'))) {
+                             // "projects" filtresi "residential" ve "commercial" olanları da göstermeli
                             item.style.display = 'block';
-                            item.style.animation = 'none'; // Animasyonu sıfırla
-                            item.offsetHeight; // Reflow'u zorla
-                            item.style.animation = 'fadeInItem 0.5s ease-out';
+                            // Animasyon eklemek isterseniz buraya ekleyebilirsiniz (örn: item.style.opacity = 0; setTimeout(() => item.style.opacity = 1, 50);)
                         } else {
                             item.style.display = 'none';
-                            item.style.animation = 'none';
                         }
                     });
                 });
             });
-        });
 
-        // CSS'e eklenmesi gereken @keyframes (eğer henüz yoksa)
-        // @keyframes fadeInItem {
-        //     from { opacity: 0; transform: translateY(20px); }
-        //     to { opacity: 1; transform: translateY(0); }
-        // }
+            // Mobil menü toggle işlevselliği
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.getElementById('mainNav');
+
+            // Sadece mobil cihazlarda hamburger menüyü göster
+            function adjustMenuDisplay() {
+                if (window.innerWidth <= 768) {
+                    menuToggle.style.display = 'block';
+                    mainNav.style.display = 'none'; // Başlangıçta menüyü gizle
+                } else {
+                    menuToggle.style.display = 'none';
+                    mainNav.style.display = 'flex'; // Masaüstünde menüyü göster
+                    mainNav.classList.remove('show'); // Mobil menü açıksa kapat
+                }
+            }
+
+            menuToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('show');
+                if (mainNav.classList.contains('show')) {
+                    this.innerHTML = '<i class="fas fa-times"></i>'; // Kapatma ikonu
+                } else {
+                    this.innerHTML = '<i class="fas fa-bars"></i>'; // Hamburger ikonu
+                }
+            });
+
+            // Sayfa yüklendiğinde ve boyut değiştiğinde menü görüntüsünü ayarla
+            window.addEventListener('load', adjustMenuDisplay);
+            window.addEventListener('resize', adjustMenuDisplay);
+        });
     </script>
 </body>
 </html>
