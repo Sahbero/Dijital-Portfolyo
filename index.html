@@ -531,12 +531,17 @@
             display: block;
             margin: auto;
             transform-origin: center center;
-            cursor: grab;
             transition: transform 0.2s ease-out; /* Yakınlaştırma için animasyon */
         }
-        .modal-image.zoomed {
+
+        /* Yakınlaştırma ve kaydırma için imleç stilleri */
+        .modal-image.can-drag {
+            cursor: grab;
+        }
+        .modal-image.dragging {
             cursor: grabbing;
         }
+
         
         .modal-controls {
             position: absolute;
@@ -956,7 +961,7 @@
             <button id="modalCloseBtn" class="modal-close-btn">&times;</button>
             <button id="modalPrevBtn" class="modal-nav-btn prev"><i class="fas fa-chevron-left"></i></button>
             <button id="modalNextBtn" class="modal-nav-btn next"><i class="fas fa-chevron-right"></i></button>
-            <!-- Yeni eklenen yakınlaştırma kontrolleri -->
+            <!-- Yakınlaştırma kontrolleri -->
             <div class="modal-controls">
                 <button id="modalZoomInBtn" class="modal-zoom-btn" title="Yakınlaştır"><i class="fas fa-search-plus"></i></button>
                 <button id="modalZoomOutBtn" class="modal-zoom-btn" title="Uzaklaştır"><i class="fas fa-search-minus"></i></button>
@@ -1019,12 +1024,24 @@
             const modalPrevBtn = document.getElementById('modalPrevBtn');
             const modalNextBtn = document.getElementById('modalNextBtn');
 
-            // Yakınlaştırma ve uzaklaştırma için eklenen butonlar ve değişkenler
+            // Yakınlaştırma ve uzaklaştırma için değişkenler
             const modalZoomInBtn = document.getElementById('modalZoomInBtn');
             const modalZoomOutBtn = document.getElementById('modalZoomOutBtn');
             let currentScale = 1.0;
-            const scaleFactor = 0.2;
+            let scaleFactor = 0.2;
             const maxScale = 3.0;
+
+            // Sürükleme (pan) için değişkenler
+            let isDragging = false;
+            let startX, startY;
+            let currentTranslateX = 0;
+            let currentTranslateY = 0;
+            let initialTranslateX = 0;
+            let initialTranslateY = 0;
+
+            function applyTransform() {
+                modalImage.style.transform = `scale(${currentScale}) translate(${currentTranslateX}px, ${currentTranslateY}px)`;
+            }
 
             function showImage(index) {
                 if (currentGalleryImages.length > 0) {
@@ -1032,32 +1049,135 @@
                     modalPrevBtn.style.display = index === 0 ? 'none' : 'flex';
                     modalNextBtn.style.display = index === currentGalleryImages.length - 1 ? 'none' : 'flex';
 
-                    // Her yeni görselde yakınlaştırmayı sıfırla
+                    // Her yeni görselde yakınlaştırma ve sürükleme durumunu sıfırla
                     currentScale = 1.0;
-                    modalImage.style.transform = `scale(${currentScale})`;
-                    modalImage.style.cursor = 'grab'; // Yakınlaştırma sıfırlanınca imleci eski haline getir
+                    currentTranslateX = 0;
+                    currentTranslateY = 0;
+                    applyTransform();
+                    modalImage.classList.remove('can-drag', 'dragging');
                 }
             }
 
             function zoomIn() {
                 if (currentScale < maxScale) {
                     currentScale += scaleFactor;
-                    modalImage.style.transform = `scale(${currentScale})`;
-                    modalImage.style.cursor = 'grab'; // Yakınlaştırınca imleç değişir
+                    applyTransform();
+                    modalImage.classList.add('can-drag'); // Yakınlaştırınca sürüklemeye izin ver
                 }
             }
 
             function zoomOut() {
                 if (currentScale > 1.0) {
                     currentScale = Math.max(1.0, currentScale - scaleFactor);
-                    modalImage.style.transform = `scale(${currentScale})`;
-                    
                     if (currentScale === 1.0) {
-                       modalImage.style.cursor = 'default'; // Yakınlaştırma sıfırlanınca imleci eski haline getir
+                        // Tamamen uzaklaştırıldığında sürükleme değerlerini sıfırla
+                        currentTranslateX = 0;
+                        currentTranslateY = 0;
+                        modalImage.classList.remove('can-drag', 'dragging');
                     }
+                    applyTransform();
                 }
             }
 
+            // Fare ile sürükleme olayları
+            modalImage.addEventListener('mousedown', (e) => {
+                if (currentScale > 1.0) {
+                    isDragging = true;
+                    startX = e.clientX;
+                    startY = e.clientY;
+                    // Mevcut transform değerlerini al
+                    const matrix = window.getComputedStyle(modalImage).transform;
+                    if (matrix !== 'none') {
+                        const values = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
+                        initialTranslateX = parseFloat(values[4]);
+                        initialTranslateY = parseFloat(values[5]);
+                    } else {
+                        initialTranslateX = 0;
+                        initialTranslateY = 0;
+                    }
+                    modalImage.classList.add('dragging');
+                }
+            });
+
+            window.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+
+                const deltaX = e.clientX - startX;
+                const deltaY = e.clientY - startY;
+
+                // Yeni sürükleme değerlerini hesapla ve sınırla
+                const imageWidth = modalImage.offsetWidth * currentScale;
+                const imageHeight = modalImage.offsetHeight * currentScale;
+                const containerWidth = galleryModal.offsetWidth;
+                const containerHeight = galleryModal.offsetHeight;
+
+                const maxPanX = Math.max(0, (imageWidth - containerWidth) / 2 / currentScale);
+                const maxPanY = Math.max(0, (imageHeight - containerHeight) / 2 / currentScale);
+
+                currentTranslateX = initialTranslateX + deltaX / currentScale;
+                currentTranslateY = initialTranslateY + deltaY / currentScale;
+
+                currentTranslateX = Math.max(Math.min(currentTranslateX, maxPanX), -maxPanX);
+                currentTranslateY = Math.max(Math.min(currentTranslateY, maxPanY), -maxPanY);
+
+                applyTransform();
+            });
+
+            window.addEventListener('mouseup', () => {
+                isDragging = false;
+                modalImage.classList.remove('dragging');
+            });
+
+            // Dokunmatik cihazlar için sürükleme olayları
+            modalImage.addEventListener('touchstart', (e) => {
+                if (currentScale > 1.0) {
+                    isDragging = true;
+                    const touch = e.touches[0];
+                    startX = touch.clientX;
+                    startY = touch.clientY;
+                    const matrix = window.getComputedStyle(modalImage).transform;
+                    if (matrix !== 'none') {
+                        const values = matrix.match(/matrix.*\((.+)\)/)[1].split(', ');
+                        initialTranslateX = parseFloat(values[4]);
+                        initialTranslateY = parseFloat(values[5]);
+                    } else {
+                        initialTranslateX = 0;
+                        initialTranslateY = 0;
+                    }
+                    modalImage.classList.add('dragging');
+                }
+            });
+
+            modalImage.addEventListener('touchmove', (e) => {
+                if (!isDragging) return;
+                const touch = e.touches[0];
+                const deltaX = touch.clientX - startX;
+                const deltaY = touch.clientY - startY;
+
+                const imageWidth = modalImage.offsetWidth * currentScale;
+                const imageHeight = modalImage.offsetHeight * currentScale;
+                const containerWidth = galleryModal.offsetWidth;
+                const containerHeight = galleryModal.offsetHeight;
+
+                const maxPanX = Math.max(0, (imageWidth - containerWidth) / 2 / currentScale);
+                const maxPanY = Math.max(0, (imageHeight - containerHeight) / 2 / currentScale);
+
+                currentTranslateX = initialTranslateX + deltaX / currentScale;
+                currentTranslateY = initialTranslateY + deltaY / currentScale;
+
+                currentTranslateX = Math.max(Math.min(currentTranslateX, maxPanX), -maxPanX);
+                currentTranslateY = Math.max(Math.min(currentTranslateY, maxPanY), -maxPanY);
+                
+                applyTransform();
+            });
+
+            modalImage.addEventListener('touchend', () => {
+                isDragging = false;
+                modalImage.classList.remove('dragging');
+            });
+
+            // Geri kalan fonksiyonlar...
             filterButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     filterButtons.forEach(btn => btn.classList.remove('active'));
