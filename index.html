@@ -536,7 +536,8 @@
             max-height: 100%;
             width: auto;
             height: auto;
-            object-fit: contain; /* Görselin oranını bozmadan ekrana sığmasını sağlar */
+            /* Görselin oranını bozmadan ekrana sığmasını sağlar */
+            object-fit: contain; 
         }
 
         /* Galeri butonları güncellendi */
@@ -721,7 +722,7 @@
         <section id="about" class="about-section section dark-bg">
             <div class="container">
                 <div class="about-image-container">
-                    <img src="vesikalık 1.jpg" alt="Profesyonel Fotoğraf">
+                    <img src="vesikalık 121 sb.jpg" alt="Profesyonel Fotoğraf">
                 </div>
                 <div>
                     <h2>Hakkımda</h2>
@@ -920,7 +921,8 @@
                         <h3>3. Detaylandırma ve Planlama</h3>
                         <p>Onaylanan konsepti teknik çizimler ve 3D modellemelerle uygulama aşamasına hazırlıyoruz.</p>
                     </div>
-                    <div class="approach-step">
+                    <div class=
+"approach-step">
                         <i class="fas fa-tools"></i>
                         <h3>4. Uygulama ve Yönetim</h3>
                         <p>Tasarımınızı hayata geçirme sürecinde titizlikle çalışıyoruz.</p>
@@ -996,13 +998,7 @@
             // Giriş animasyonunu başlat
             document.querySelector('.hero-content').classList.add('visible');
 
-            // Varsayılan portfolyo filtresini uygula
-            const defaultFilterBtn = document.querySelector('.portfolio-filters button[data-filter="projects"]');
-            if (defaultFilterBtn) {
-                defaultFilterBtn.click();
-            }
-
-            // Mobil menü toggle işlevselliği düzeltildi
+            // Mobil menü toggle işlevselliği
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNav = document.getElementById('mainNav');
 
@@ -1107,6 +1103,22 @@
                     }
                 }
             });
+
+            // İlk açılışta yalnızca "Projeler" filtresini uygula
+            const defaultFilterBtn = document.querySelector('.portfolio-filters button[data-filter="projects"]');
+            
+            // Sayfa yüklendiğinde tüm portfolyo öğelerini döngüye al
+            portfolioItems.forEach(item => {
+                // Eğer öğenin kategorisi "projects" değilse, gizle.
+                if (item.dataset.category !== 'projects') {
+                    item.style.display = 'none';
+                }
+            });
+
+            // Aktif butonu ayarla
+            if (defaultFilterBtn) {
+                defaultFilterBtn.classList.add('active');
+            }
         });
 
         // Mobil menü simgesi ve görünürlüğü için medya sorgusuna duyarlı kontrol
