@@ -129,7 +129,7 @@
 
         .logo {
             /* Logo boyutu büyütüldü */
-            font-size: 1.3em;
+            font-size: 1.5em; /* Yazı boyutu büyütüldü */
             font-weight: 700;
             padding-left: 10px;
         }
@@ -534,7 +534,9 @@
         .modal-image {
             max-width: 100%;
             max-height: 100%;
-            object-fit: contain;
+            width: auto;
+            height: auto;
+            object-fit: contain; /* Görselin oranını bozmadan ekrana sığmasını sağlar */
         }
 
         /* Galeri butonları güncellendi */
@@ -719,7 +721,7 @@
         <section id="about" class="about-section section dark-bg">
             <div class="container">
                 <div class="about-image-container">
-                    <img src="vesikalık 121 sb.jpg" alt="Profesyonel Fotoğraf">
+                    <img src="vesikalık 1.jpg" alt="Profesyonel Fotoğraf">
                 </div>
                 <div>
                     <h2>Hakkımda</h2>
@@ -963,32 +965,34 @@
     </div>
 
     <script>
-        // Smooth scroll (Akıcı Kaydırma)
-        document.querySelectorAll('nav a').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const targetId = this.getAttribute('href');
-                const targetElement = document.querySelector(targetId);
-                const headerOffset = document.querySelector('.header').offsetHeight;
-                const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = elementPosition - headerOffset;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Smooth scroll (Akıcı Kaydırma)
+            document.querySelectorAll('nav a').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const headerOffset = document.querySelector('.header').offsetHeight;
+                        const elementPosition = targetElement.getBoundingClientRect().top + window.pageYOffset;
+                        const offsetPosition = elementPosition - headerOffset;
 
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
+                        window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+
+                    // Menü kapanırken hamburger simgesini geri getir
+                    const nav = document.getElementById('mainNav');
+                    const menuToggle = document.querySelector('.menu-toggle');
+                    if (nav.classList.contains('show')) {
+                        nav.classList.remove('show');
+                        menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
                 });
-
-                const nav = document.getElementById('mainNav');
-                const menuToggle = document.querySelector('.menu-toggle');
-                if (nav.classList.contains('show')) {
-                    nav.classList.remove('show');
-                    menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
-                }
             });
-        });
 
-        // Sayfa yüklendiğinde çalışacak fonksiyon
-        window.addEventListener('load', function() {
             // Giriş animasyonunu başlat
             document.querySelector('.hero-content').classList.add('visible');
 
@@ -998,25 +1002,20 @@
                 defaultFilterBtn.click();
             }
 
-            // Mobil menü görünürlüğünü ayarla (window.onload ile birleştirildi)
-            function adjustMenuVisibility() {
-                const mainNav = document.getElementById('mainNav');
-                const menuToggle = document.querySelector('.menu-toggle');
-                if (window.innerWidth <= 768) {
-                    mainNav.style.display = 'none';
-                    menuToggle.style.display = 'block';
-                } else {
-                    mainNav.style.display = 'flex';
-                    menuToggle.style.display = 'none';
-                    mainNav.classList.remove('show');
-                }
-            }
-            adjustMenuVisibility();
-            window.addEventListener('resize', adjustMenuVisibility);
-        });
+            // Mobil menü toggle işlevselliği düzeltildi
+            const menuToggle = document.querySelector('.menu-toggle');
+            const mainNav = document.getElementById('mainNav');
 
-        // Portfolyo Filtreleme ve Galeri İşlevselliği
-        document.addEventListener('DOMContentLoaded', function() {
+            menuToggle.addEventListener('click', function() {
+                mainNav.classList.toggle('show');
+                if (mainNav.classList.contains('show')) {
+                    this.innerHTML = '<i class="fas fa-times"></i>';
+                } else {
+                    this.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+
+            // Portfolyo Filtreleme ve Galeri İşlevselliği
             const filterButtons = document.querySelectorAll('.portfolio-filters button');
             const portfolioItems = document.querySelectorAll('.portfolio-item');
 
@@ -1029,10 +1028,12 @@
             const modalNextBtn = document.getElementById('modalNextBtn');
 
             function showImage(index) {
-                modalImage.src = currentGalleryImages[index];
-                // Navigasyon butonlarını kontrol et
-                modalPrevBtn.style.display = index === 0 ? 'none' : 'flex';
-                modalNextBtn.style.display = index === currentGalleryImages.length - 1 ? 'none' : 'flex';
+                if (currentGalleryImages.length > 0) {
+                    modalImage.src = currentGalleryImages[index];
+                    // Navigasyon butonlarını kontrol et
+                    modalPrevBtn.style.display = index === 0 ? 'none' : 'flex';
+                    modalNextBtn.style.display = index === currentGalleryImages.length - 1 ? 'none' : 'flex';
+                }
             }
 
             filterButtons.forEach(button => {
@@ -1090,7 +1091,7 @@
             });
             galleryModal.addEventListener('click', function(e) {
                 if (e.target === galleryModal) {
-                    galleryModal.classList.remove('show');
+                    modalCloseBtn.click();
                 }
             });
             
@@ -1106,20 +1107,20 @@
                     }
                 }
             });
-
-            // Mobil menü toggle işlevselliği
-            const menuToggle = document.querySelector('.menu-toggle');
-            const mainNav = document.getElementById('mainNav');
-
-            menuToggle.addEventListener('click', function() {
-                mainNav.classList.toggle('show');
-                if (mainNav.classList.contains('show')) {
-                    this.innerHTML = '<i class="fas fa-times"></i>';
-                } else {
-                    this.innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            });
         });
+
+        // Mobil menü simgesi ve görünürlüğü için medya sorgusuna duyarlı kontrol
+        function handleResize() {
+            const mainNav = document.getElementById('mainNav');
+            const menuToggle = document.querySelector('.menu-toggle');
+            if (window.innerWidth > 768) {
+                mainNav.classList.remove('show');
+                menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        }
+
+        window.addEventListener('resize', handleResize);
+        
     </script>
 </body>
 </html>
