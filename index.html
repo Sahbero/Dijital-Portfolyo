@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Berhan Savaş | İç Mimar Portfolyo</title>
+    <title>İç Mimar Portfolyo | Berhan Savaş</title>
     <!-- Font Awesome CDN for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -510,7 +510,8 @@
             border-top: 1px solid var(--border-color);
         }
 
-        /* Galeri Modalı */
+        /* ----- GALERİ MODAL DÜZELTMELERİ BAŞLANGIÇ ----- */
+
         .gallery-modal {
             position: fixed;
             top: 0;
@@ -518,7 +519,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            display: none;
+            display: none; /* Varsayılan olarak gizli */
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -528,11 +529,16 @@
         }
         .modal-content {
             position: relative;
-            max-width: 90vw;
-            max-height: 90vh;
+            max-width: 90vw; /* Ekran genişliğinin %90'ını kaplar */
+            max-height: 90vh; /* Ekran yüksekliğinin %90'ını kaplar */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            /* Bu kısım çok önemli: İçerik çok büyükse kaydırmayı etkinleştirir */
+            overflow: auto; 
         }
         .modal-image {
-            max-width: 100%;
+            max-width: 100%; /* İçinde bulunduğu kutuya (modal-content) sığmasını sağlar */
             max-height: 100%;
             width: auto;
             height: auto;
@@ -573,6 +579,7 @@
         .modal-nav-btn.next {
             right: 20px;
         }
+        /* ----- GALERİ MODAL DÜZELTMELERİ SON ----- */
 
         /* Mobil Uyumluluk */
         @media (max-width: 768px) {
@@ -786,13 +793,13 @@
                          Örnek: data-images='["url1.jpg", "url2.jpg", "url3.jpg"]'
                     -->
                     <!-- Projeler (2 Adet) -->
-                    <div class="portfolio-item" data-category="projects" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+1", "https://via.placeholder.com/800x600/C0C0C0/555?text=Proje+1+Görsel+2"]'>
+                    <div class="portfolio-item" data-category="projects" data-images='["https://via.placeholder.com/1200x800/DEDEDE/888?text=Proje+1", "https://via.placeholder.com/800x1200/C0C0C0/555?text=Proje+1+Görsel+2"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+1" alt="Modern Konut Projesi">
                         <div class="portfolio-info">
                             <h3>Modern Konut</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="projects" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+2", "https://via.placeholder.com/800x600/C0C0C0/555?text=Proje+2+Görsel+2"]'>
+                    <div class="portfolio-item" data-category="projects" data-images='["https://via.placeholder.com/1600x900/DEDEDE/888?text=Proje+2", "https://via.placeholder.com/800x600/C0C0C0/555?text=Proje+2+Görsel+2"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+2" alt="Ofis Alanı Tasarımı">
                         <div class="portfolio-info">
                             <h3>Ofis Alanı</h3>
@@ -820,25 +827,25 @@
                     </div>
 
                     <!-- 3D Renderlar (4 Adet) -->
-                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Render+1"]'>
+                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/1920x1080/DEDEDE/888?text=Render+1"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+1" alt="3D İç Mekan Render">
                         <div class="portfolio-info">
                             <h3>Oturma Odası Render</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Render+2"]'>
+                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/800x1200/DEDEDE/888?text=Render+2"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+2" alt="3D Yatak Odası Render">
                         <div class="portfolio-info">
                             <h3>Yatak Odası Render</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Render+3"]'>
+                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/1200x800/DEDEDE/888?text=Render+3"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+3" alt="3D Mutfak Render">
                         <div class="portfolio-info">
                             <h3>Mutfak Render</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Render+4"]'>
+                    <div class="portfolio-item" data-category="renders" data-images='["https://via.placeholder.com/1600x900/DEDEDE/888?text=Render+4"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Render+4" alt="3D Banyo Render">
                         <div class="portfolio-info">
                             <h3>Banyo Render</h3>
@@ -846,25 +853,25 @@
                     </div>
                     
                     <!-- Teknik Çizimler (4 Adet) -->
-                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+1"]'>
+                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/800x600/DEDEDE/888?text=Teknik+1"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+1" alt="Kat Planı">
                         <div class="portfolio-info">
                             <h3>Kat Planı</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+2"]'>
+                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x800/DEDEDE/888?text=Teknik+2"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+2" alt="Kesit Çizimi">
                         <div class="portfolio-info">
                             <h3>Kesit Çizimi</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+3"]'>
+                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/800x600/DEDEDE/888?text=Teknik+3"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+3" alt="Cephe Çizimi">
                         <div class="portfolio-info">
                             <h3>Cephe Çizimi</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+4"]'>
+                    <div class="portfolio-item" data-category="technical" data-images='["https://via.placeholder.com/600x800/DEDEDE/888?text=Teknik+4"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Teknik+4" alt="Detay Çizimi">
                         <div class="portfolio-info">
                             <h3>Detay Çizimi</h3>
@@ -872,25 +879,25 @@
                     </div>
 
                     <!-- El Çizimleri (4 Adet) -->
-                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+1"]'>
+                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/1200x900/DEDEDE/888?text=Çizim+1"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+1" alt="Konsept Eskizi">
                         <div class="portfolio-info">
                             <h3>Konsept Eskizi</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+2"]'>
+                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/900x1200/DEDEDE/888?text=Çizim+2"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+2" alt="Perspektif Çizimi">
                         <div class="portfolio-info">
                             <h3>Perspektif Çizimi</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+3"]'>
+                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/1200x900/DEDEDE/888?text=Çizim+3"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+3" alt="Detay Eskizi">
                         <div class="portfolio-info">
                             <h3>Detay Eskizi</h3>
                         </div>
                     </div>
-                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+4"]'>
+                    <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/900x1200/DEDEDE/888?text=Çizim+4"]'>
                         <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+4" alt="Malzeme Örneği Eskizi">
                         <div class="portfolio-info">
                             <h3>Malzeme Eskizi</h3>
@@ -921,8 +928,7 @@
                         <h3>3. Detaylandırma ve Planlama</h3>
                         <p>Onaylanan konsepti teknik çizimler ve 3D modellemelerle uygulama aşamasına hazırlıyoruz.</p>
                     </div>
-                    <div class=
-"approach-step">
+                    <div class="approach-step">
                         <i class="fas fa-tools"></i>
                         <h3>4. Uygulama ve Yönetim</h3>
                         <p>Tasarımınızı hayata geçirme sürecinde titizlikle çalışıyoruz.</p>
@@ -1060,6 +1066,8 @@
                             currentImageIndex = 0;
                             showImage(currentImageIndex);
                             galleryModal.classList.add('show');
+                             // Sayfa kaydırma çubuğunu gizle
+                            document.body.style.overflow = 'hidden';
                         } catch (e) {
                             console.error("Görsel listesi çözümlenemedi:", e);
                         }
@@ -1084,6 +1092,8 @@
             // Galeri kapatma
             modalCloseBtn.addEventListener('click', function() {
                 galleryModal.classList.remove('show');
+                // Sayfa kaydırma çubuğunu geri getir
+                document.body.style.overflow = '';
             });
             galleryModal.addEventListener('click', function(e) {
                 if (e.target === galleryModal) {
