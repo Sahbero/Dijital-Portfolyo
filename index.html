@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>İç Mimar Portfolyo | [Adınız Soyadınız]</title>
+    <title>İç Mimar Portfolyo | Berhan Savaş</title>
     <!-- Font Awesome CDN for Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -106,7 +106,10 @@
 
         /* Header / Navigasyon */
         .header {
-            background-color: rgba(255, 255, 255, 0.95);
+            /* Yarı şeffaf buzlu cam efekti */
+            background-color: rgba(255, 255, 255, 0.8);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             height: var(--header-height);
             display: flex;
             align-items: center;
@@ -115,8 +118,6 @@
             position: sticky;
             top: 0;
             z-index: 1000;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
         }
 
         .header .container {
@@ -134,6 +135,11 @@
         .logo a {
             color: var(--text-color);
             text-decoration: none;
+        }
+
+        .nav {
+            /* Masaüstünde her zaman göster */
+            display: flex; 
         }
 
         .nav ul {
@@ -209,6 +215,15 @@
             z-index: 3;
             padding: 20px;
             max-width: 800px;
+            /* Animasyon başlangıç durumu */
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+        /* Animasyon bitiş durumu (JS ile eklenecek) */
+        .hero-content.visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         /* Ana Sayfa Yazı rengi artık koyu */
@@ -448,6 +463,10 @@
             margin-bottom: 2em;
         }
 
+        .contact-info h2 {
+             margin-bottom: 1rem;
+        }
+
         .contact-info p {
             font-size: 1.1em;
             margin-bottom: 0.5em;
@@ -656,7 +675,7 @@
     <header class="header">
         <div class="container">
             <div class="logo">
-                <a href="#home">[Adınız Soyadınız]</a>
+                <a href="#home">Berhan Savaş</a>
             </div>
             <nav class="nav" id="mainNav">
                 <ul>
@@ -690,11 +709,11 @@
         <section id="about" class="about-section section dark-bg">
             <div class="container">
                 <div class="about-image-container">
-                    <img src="https://via.placeholder.com/400x500/E0E0E0/666?text=Profesyonel+Fotoğrafınız" alt="Profesyonel Fotoğraf">
+                    <img src="https://via.placeholder.com/400x500/E0E0E0/666?text=Berhan+Savaş" alt="Profesyonel Fotoğraf">
                 </div>
                 <div>
                     <h2>Hakkımda</h2>
-                    <p>Merhaba, ben **[Adınız Soyadınız]**. İç mimarlık tutkum, mekanları sadece estetik açıdan hoş değil, aynı zamanda kullanıcılarının ihtiyaçlarına mükemmel şekilde cevap veren işlevsel alanlara dönüştürmek üzerine kurulu. Minimalist tasarımın gücüne inanıyor ve her projeye özgün bir bakış açısıyla yaklaşıyorum.</p>
+                    <p>Merhaba, ben **Berhan Savaş**. Işık Üniversitesi İç Mimarlık ve Çevre Tasarımı mezunuyum. İç mimarlık tutkum, mekanları sadece estetik açıdan hoş değil, aynı zamanda kullanıcılarının ihtiyaçlarına mükemmel şekilde cevap veren işlevsel alanlara dönüştürmek üzerine kurulu. Minimalist tasarımın gücüne inanıyor ve her projeye özgün bir bakış açısıyla yaklaşıyorum.</p>
                     <h3>Yeteneklerim ve Uzmanlık Alanlarım</h3>
                     <div class="skills-grid">
                         <div class="skill-item">
@@ -737,12 +756,13 @@
             <div class="container">
                 <h2 class="section-title">Portfolyo</h2>
                 <div class="portfolio-filters">
-                    <button class="active" data-filter="all">Tümü</button>
-                    <button data-filter="projects">Projeler</button>
+                    <!-- "Projeler" butonu ilk yüklendiğinde varsayılan olarak seçili -->
+                    <button class="active" data-filter="projects">Projeler</button>
                     <button data-filter="concept-projects">Konsept Projeler</button>
                     <button data-filter="renders">3D Renderlar</button>
                     <button data-filter="technical">Teknik Çizimler</button>
                     <button data-filter="sketches">El Çizimleri</button>
+                    <button data-filter="all">Tümü</button>
                 </div>
                 <div class="portfolio-grid">
                     <!-- Örnek Proje Öğeleri - Kendi İçeriklerinizle Değiştirin -->
@@ -887,7 +907,7 @@
                         <h3>3. Detaylandırma ve Planlama</h3>
                         <p>Onaylanan konsepti teknik çizimler ve 3D modellemelerle uygulama aşamasına hazırlıyoruz.</p>
                     </div>
-                    <div class-step>
+                    <div class="approach-step">
                         <i class="fas fa-tools"></i>
                         <h3>4. Uygulama ve Yönetim</h3>
                         <p>Tasarımınızı hayata geçirme sürecinde titizlikle çalışıyoruz.</p>
@@ -902,8 +922,8 @@
                 <h2 class="section-title">İletişim</h2>
                 <p>Projeniz hakkında konuşmak veya bir danışmanlık randevusu almak için bana ulaşmaktan çekinmeyin.</p>
                 <div class="contact-info">
-                    <p>E-posta: <a href="mailto:info@sizinadiniz.com">info@sizinadiniz.com</a></p>
-                    <p>Telefon: <a href="tel:+905XXXXXXXXX">+90 5XX XXX XX XX</a></p>
+                    <p>E-posta: <a href="mailto:savasberhan@gmail.com">savasberhan@gmail.com</a></p>
+                    <p>Telefon: <a href="tel:+905536585927">+90 553 658 59 27</a></p>
                 </div>
                 <div class="social-links">
                     <a href="https://www.linkedin.com/in/profiliniz" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
@@ -916,8 +936,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2025 [Adınız Soyadınız]. Tüm Hakları Saklıdır.</p>
-            <p>Tasarım ve Geliştirme: [Adınız Soyadınız]</p>
+            <p>&copy; 2025 Berhan Savaş. Tüm Hakları Saklıdır.</p>
+            <p>Tasarım ve Geliştirme: Berhan Savaş</p>
         </div>
     </footer>
 
@@ -954,6 +974,34 @@
                     menuToggle.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
+        });
+
+        // Sayfa yüklendiğinde çalışacak fonksiyon
+        window.addEventListener('load', function() {
+            // Giriş animasyonunu başlat
+            document.querySelector('.hero-content').classList.add('visible');
+
+            // Varsayılan portfolyo filtresini uygula
+            const defaultFilterBtn = document.querySelector('.portfolio-filters button[data-filter="projects"]');
+            if (defaultFilterBtn) {
+                defaultFilterBtn.click();
+            }
+
+            // Mobil menü görünürlüğünü ayarla (window.onload ile birleştirildi)
+            function adjustMenuVisibility() {
+                const mainNav = document.getElementById('mainNav');
+                const menuToggle = document.querySelector('.menu-toggle');
+                if (window.innerWidth <= 768) {
+                    mainNav.style.display = 'none';
+                    menuToggle.style.display = 'block';
+                } else {
+                    mainNav.style.display = 'flex';
+                    menuToggle.style.display = 'none';
+                    mainNav.classList.remove('show');
+                }
+            }
+            adjustMenuVisibility();
+            window.addEventListener('resize', adjustMenuVisibility);
         });
 
         // Portfolyo Filtreleme ve Galeri İşlevselliği
@@ -1052,17 +1100,6 @@
             const menuToggle = document.querySelector('.menu-toggle');
             const mainNav = document.getElementById('mainNav');
 
-            function adjustMenuDisplay() {
-                if (window.innerWidth <= 768) {
-                    menuToggle.style.display = 'block';
-                    mainNav.style.display = 'none';
-                } else {
-                    menuToggle.style.display = 'none';
-                    mainNav.style.display = 'flex';
-                    mainNav.classList.remove('show');
-                }
-            }
-
             menuToggle.addEventListener('click', function() {
                 mainNav.classList.toggle('show');
                 if (mainNav.classList.contains('show')) {
@@ -1071,9 +1108,6 @@
                     this.innerHTML = '<i class="fas fa-bars"></i>';
                 }
             });
-
-            window.addEventListener('load', adjustMenuDisplay);
-            window.addEventListener('resize', adjustMenuDisplay);
         });
     </script>
 </body>
