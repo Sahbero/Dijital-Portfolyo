@@ -511,7 +511,6 @@
         }
 
         /* ----- GALERİ MODAL DÜZELTMELERİ BAŞLANGIÇ ----- */
-
         .gallery-modal {
             position: fixed;
             top: 0;
@@ -519,7 +518,7 @@
             width: 100%;
             height: 100%;
             background-color: rgba(0, 0, 0, 0.9);
-            display: none; /* Varsayılan olarak gizli */
+            display: none;
             justify-content: center;
             align-items: center;
             z-index: 2000;
@@ -527,6 +526,7 @@
         .gallery-modal.show {
             display: flex;
         }
+        
         .modal-content {
             position: relative;
             max-width: 90vw; /* Ekran genişliğinin %90'ını kaplar */
@@ -534,15 +534,13 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            /* Bu kısım çok önemli: İçerik çok büyükse kaydırmayı etkinleştirir */
             overflow: auto; 
         }
         .modal-image {
-            max-width: 100%; /* İçinde bulunduğu kutuya (modal-content) sığmasını sağlar */
-            max-height: 100%;
+            /* Görselin kendi boyutunda kalmasını ve kaydırma çubuğunun çalışmasını sağlar */
+            max-width: 100%;
             width: auto;
             height: auto;
-            /* Görselin oranını bozmadan ekrana sığmasını sağlar */
             object-fit: contain; 
         }
 
@@ -800,7 +798,7 @@
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="projects" data-images='["https://via.placeholder.com/1600x900/DEDEDE/888?text=Proje+2", "https://via.placeholder.com/800x600/C0C0C0/555?text=Proje+2+Görsel+2"]'>
-                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Proje+2" alt="Ofis Alanı Tasarımı">
+                        <img src="https://via.placeholder.co/600x400/DEDEDE/888?text=Proje+2" alt="Ofis Alanı Tasarımı">
                         <div class="portfolio-info">
                             <h3>Ofis Alanı</h3>
                         </div>
@@ -886,7 +884,7 @@
                         </div>
                     </div>
                     <div class="portfolio-item" data-category="sketches" data-images='["https://via.placeholder.com/900x1200/DEDEDE/888?text=Çizim+2"]'>
-                        <img src="https://via.placeholder.com/600x400/DEDEDE/888?text=Çizim+2" alt="Perspektif Çizimi">
+                        <img src="https://via.placeholder.co/600x400/DEDEDE/888?text=Çizim+2" alt="Perspektif Çizimi">
                         <div class="portfolio-info">
                             <h3>Perspektif Çizimi</h3>
                         </div>
